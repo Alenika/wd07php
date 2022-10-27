@@ -8,9 +8,21 @@
     <title>Document</title>
 </head>
 <body>
-<form action="">
-    <input type="text">
+
+<form action="/?page=form_result" method="get">
+    <input type="text" name="random">
+    <input type="text" name="query">
+    <input type="password" name="password">
     <button type="submit">Send</button>
 </form>
+<br>
+<form action="/?page=form_result" method="post">
+    <input type="text" name="title">
+    <br><br>
+    <textarea name="content" id="" cols="30" rows="10"></textarea>
+    <br>
+    <button type="submit">Send</button>
+</form>
+
 </body>
 </html>
