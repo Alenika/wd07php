@@ -1,22 +1,15 @@
 <?php
-include __DIR__."/../src/pages.php";
+include_once __DIR__."/../src/functions.php";
+include_once __DIR__."/../src/db.php";
 
-if (isset($_GET['page']) && $_GET['page'] == 'form') {
-    include __DIR__."/../src/form.php";
+$url = $_SERVER['REQUEST_URI'];
+
+if ($url == '/') {
+    include_once __DIR__."/../src/pages/blog.php";
 }
 
-if (isset($_GET['page']) && $_GET['page'] == 'form_result') {
-    include __DIR__."/../src/form_result.php";
+if (strpos($url, '/page/') === 0) {
+    $tmp = explode(separator: '/', string: $url);
+    $pageId = $tmp[count($tmp) -1];
+    include_once __DIR__."/../src/pages/page.php";
 }
-
-if (isset($_GET['page']) && $_GET['page'] == 'page') {
-    include __DIR__."/../src/page.php";
-}
-
-echo "<pre>";
-print_r($_GET);
-echo "</pre>";
-
-echo "<pre>";
-print_r($_POST);
-echo "</pre>";
