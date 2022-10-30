@@ -1,6 +1,13 @@
 <?php
-$res = mysqli_query($connection, query: 'SELECT * FROM wd07.posts;');
+$res = mysqli_query($connection, query: 'SELECT * FROM wd07.posts order by id desc limit 2;');
 $pages = mysqli_fetch_all($res, mode: MYSQLI_ASSOC);
+
+$res = mysqli_query($connection, query: 'select count(id) as total from wd07.posts;');
+$total = mysqli_fetch_assoc(($res));
+$total = $total['total'];
+$pageCount = ceil($total/5);
+debug($pageCount);
+
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +80,11 @@ $pages = mysqli_fetch_all($res, mode: MYSQLI_ASSOC);
             <hr class="my-4" />
             <?php endforeach; ?>
             <!-- Pager-->
-            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+            <div class="d-flex justify-content-end mb-4">
+                <?php for ($i=1; $i<=$pageCount; $i++):?>
+                <a class="btn btn-primary text-uppercase" href="/?page=<?=$i?>"><?= $i ?> →</a>
+                <?php endfor; ?>
+            </div>
         </div>
     </div>
 </div>
