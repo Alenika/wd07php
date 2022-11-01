@@ -1,12 +1,18 @@
 <?php
-$res = mysqli_query($connection, query: 'SELECT * FROM wd07.posts order by id desc limit 2;');
+$offset = 0;
+if (isset($_GET['page'])) {
+    $offset = ((int) $_GET['page'] - 1) * 5;
+}
+$res = mysqli_query($connection,
+    query: "SELECT * FROM wd07.posts order by id desc limit $offset, 5;"
+);
 $pages = mysqli_fetch_all($res, mode: MYSQLI_ASSOC);
 
 $res = mysqli_query($connection, query: 'select count(id) as total from wd07.posts;');
 $total = mysqli_fetch_assoc(($res));
 $total = $total['total'];
 $pageCount = ceil($total/5);
-debug($pageCount);
+//debug($pageCount);
 
 ?>
 
@@ -47,7 +53,7 @@ debug($pageCount);
     </div>
 </nav>
 <!-- Page Header-->
-<header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+<header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
