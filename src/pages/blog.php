@@ -1,6 +1,19 @@
 <?php
-$res = mysqli_query($connection, query: 'SELECT * FROM wd07.posts;');
+$offset = 0;
+if (isset($_GET['page'])) {
+    $offset = ((int) $_GET['page'] - 1) * 5;
+}
+$res = mysqli_query($connection,
+    query: "SELECT * FROM wd07.posts order by id desc limit $offset, 5;"
+);
 $pages = mysqli_fetch_all($res, mode: MYSQLI_ASSOC);
+
+$res = mysqli_query($connection, query: 'select count(id) as total from wd07.posts;');
+$total = mysqli_fetch_assoc(($res));
+$total = $total['total'];
+$pageCount = ceil($total/5);
+//debug($pageCount);
+
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +53,7 @@ $pages = mysqli_fetch_all($res, mode: MYSQLI_ASSOC);
     </div>
 </nav>
 <!-- Page Header-->
-<header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+<header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
@@ -73,7 +86,11 @@ $pages = mysqli_fetch_all($res, mode: MYSQLI_ASSOC);
             <hr class="my-4" />
             <?php endforeach; ?>
             <!-- Pager-->
-            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+            <div class="d-flex justify-content-end mb-4">
+                <?php for ($i=1; $i<=$pageCount; $i++):?>
+                <a class="btn btn-primary text-uppercase" href="/?page=<?=$i?>"><?= $i ?> →</a>
+                <?php endfor; ?>
+            </div>
         </div>
     </div>
 </div>
