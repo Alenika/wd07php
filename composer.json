@@ -1,0 +1,18 @@
+{
+    "name": "alenika/wd07php",
+    "description": "my first php project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alena Ahiyevich",
+            "email": "ahiyevichelena@gmail.com"
+        }
+    ],
+    "require": {
+        "bramus/router": "~1.6"
+    }
+}
