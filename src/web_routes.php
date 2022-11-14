@@ -6,11 +6,10 @@ use Bramus\Router\Router;
 $router = new Router();
 
 $router->get('/', function() {
-    $user = new User;
-    echo "Main";
+//    echo "Main";
 });
 $router->get('/alena', function() {
-    echo "Hello Alena";
+//    echo "Hello Alena";
 });
 
 $router->run();
