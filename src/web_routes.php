@@ -1,6 +1,7 @@
 <?php
 
 use App\User;
+use App\Car;
 use Bramus\Router\Router;
 
 $router = new Router();
